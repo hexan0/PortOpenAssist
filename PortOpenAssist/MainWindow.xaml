@@ -1,0 +1,25 @@
+﻿<Window x:Class="PortOpenAssist.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PortOpenAssist"
+        mc:Ignorable="d"
+        Title="Port Open Assist" Height="400" Width="250">
+    <Grid>
+        <Label Content="LAN IP :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="LanIP" HorizontalAlignment="Left" Height="23" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+				 InputMethod.IsInputMethodEnabled="False"
+				 PreviewTextInput="EnOnly_PreviewTextInput"
+				 CommandManager.PreviewExecuted="Only_PreviewExecuted"/>
+        <Label Content="Open" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="OpenDH" Content="Hoi2DH (2300-2310,47624TU)" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="200" Click="OpenDH_Click"/>
+        <Button x:Name="OpenMCBE" Content="MinecraftBE (19132U)" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="200" Click="OpenMCBE_Click"/>
+        <Button x:Name="OpenMCJE" Content="MinecraftJE (25565T)" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="200" Click="OpenMCJE_Click"/>
+        <Label Content="Close" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="CloseDH" Content="Hoi2DH (2300-2310,47624TU)" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="200" Click="CloseDH_Click"/>
+        <Button x:Name="CloseMCBE" Content="MinecraftBE (19132U)" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Width="200" Click="CloseMCBE_Click"/>
+        <Button x:Name="CloseMCJE" Content="MinecraftJE (25565T)" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="200" Click="CloseMCJE_Click"/>
+
+    </Grid>
+</Window>
