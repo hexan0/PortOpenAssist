@@ -5,21 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PortOpenAssist"
         mc:Ignorable="d"
-        Title="Port Open Assist" Height="400" Width="250">
+        Title="Port Open Assist" Height="400" Width="500">
     <Grid>
         <Label Content="LAN IP :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="LanIP" HorizontalAlignment="Left" Height="23" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
 				 InputMethod.IsInputMethodEnabled="False"
 				 PreviewTextInput="EnOnly_PreviewTextInput"
 				 CommandManager.PreviewExecuted="Only_PreviewExecuted"/>
-        <Label Content="Open" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="OpenDH" Content="Hoi2DH (2300-2310,47624TU)" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="200" Click="OpenDH_Click"/>
-        <Button x:Name="OpenMCBE" Content="MinecraftBE (19132U)" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="200" Click="OpenMCBE_Click"/>
-        <Button x:Name="OpenMCJE" Content="MinecraftJE (25565T)" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="200" Click="OpenMCJE_Click"/>
-        <Label Content="Close" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="CloseDH" Content="Hoi2DH (2300-2310,47624TU)" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="200" Click="CloseDH_Click"/>
-        <Button x:Name="CloseMCBE" Content="MinecraftBE (19132U)" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Width="200" Click="CloseMCBE_Click"/>
-        <Button x:Name="CloseMCJE" Content="MinecraftJE (25565T)" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Width="200" Click="CloseMCJE_Click"/>
+        <Label Content="List" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="Hoi2DH (2300-2310,47624TU)" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
+        <Label Content="MinecraftBE (19132U)" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+        <Label Content="MinecraftJE (25565T)" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="OpenDH" Content="Open" HorizontalAlignment="Left" Margin="374,70,0,0" VerticalAlignment="Top" Width="50" Click="OpenDH_Click"/>
+        <Button x:Name="OpenMCBE" Content="Open" HorizontalAlignment="Left" Margin="374,96,0,0" VerticalAlignment="Top" Width="50" Click="OpenMCBE_Click"/>
+        <Button x:Name="OpenMCJE" Content="Open" HorizontalAlignment="Left" Margin="374,122,0,0" VerticalAlignment="Top" Width="50" Click="OpenMCJE_Click"/>
+        <Button x:Name="CloseDH" Content="Close" HorizontalAlignment="Left" Margin="429,70,0,0" VerticalAlignment="Top" Width="50" Click="CloseDH_Click"/>
+        <Button x:Name="CloseMCBE" Content="Close" HorizontalAlignment="Left" Margin="429,96,0,0" VerticalAlignment="Top" Width="50" Click="CloseMCBE_Click"/>
+        <Button x:Name="CloseMCJE" Content="Close" HorizontalAlignment="Left" Margin="429,122,0,0" VerticalAlignment="Top" Width="50" Click="CloseMCJE_Click"/>
+        
 
     </Grid>
 </Window>
