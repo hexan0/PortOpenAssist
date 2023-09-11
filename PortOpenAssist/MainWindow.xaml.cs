@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace PortOpenAssist
 {
@@ -25,6 +28,8 @@ namespace PortOpenAssist
         public MainWindow()
         {
             InitializeComponent();
+
+            LoadSetting();
         }
 
         private void OpenDH_Click(object sender, RoutedEventArgs e)
@@ -126,5 +131,79 @@ namespace PortOpenAssist
                 e.Handled = true;
             }
         }
+
+        private Setting setting;
+        private OpenSet set_DH;
+        private OpenSet set_BE;
+        private OpenSet set_JE;
+        private void CreateSetting()
+        {
+            setting = new Setting();
+            set_DH = new OpenSet();
+            set_BE = new OpenSet();
+            set_JE = new OpenSet();
+
+            set_DH.name = "Hoi2 DH";
+            set_DH.ports = new ObservableCollection<Port>();
+            set_DH.ports.Add(new Port { port = "2300-2309", protocol = "TCP" });
+            set_DH.ports.Add(new Port { port = "2310,47624", protocol = "TCP" });
+            set_DH.ports.Add(new Port { port = "2300-2309", protocol = "UDP" });
+            set_DH.ports.Add(new Port { port = "2310,47624", protocol = "UDP" });
+
+            set_BE.name = "Minecraft BE";
+            set_BE.ports = new ObservableCollection<Port>();
+            set_BE.ports.Add(new Port { port = "19132", protocol = "UDP" });
+
+            set_JE.name = "Minecraft JE";
+            set_JE.ports = new ObservableCollection<Port>();
+            set_JE.ports.Add(new Port { port = "25565", protocol = "TCP" });
+
+            setting.opensets = new ObservableCollection<OpenSet>();
+            setting.opensets.Add(set_DH);
+            setting.opensets.Add(set_BE);
+            setting.opensets.Add(set_JE);
+
+            // XmlSerializerを使ってファイルに保存（オブジェクトの内容を書き込む）
+            XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+
+            // カレントディレクトリに"settings.xml"というファイルで書き出す
+            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + "settings.xml", FileMode.Create);
+
+            // オブジェクトをシリアル化してXMLファイルに書き込む
+            serializer.Serialize(fs, setting);
+            fs.Close();
+        }
+
+        private void LoadSetting()
+        {
+            // XMLをTwitSettingsオブジェクトに読み込む
+            Setting setting = new Setting();
+            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + "settings.xml", FileMode.Open);
+
+            // XMLファイルを読み込み、逆シリアル化（復元）する
+            XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+            setting = (Setting)serializer.Deserialize(fs);
+            fs.Close();
+
+
+
+        }
+    }
+
+    public class Port
+    {
+        public string port;
+        public string protocol;
+    }
+
+    public class OpenSet
+    {
+        public string name;
+        public ObservableCollection<Port> ports;
+    }
+
+    public class Setting
+    {
+        public ObservableCollection<OpenSet> opensets;
     }
 }
