@@ -25,13 +25,32 @@ namespace PortOpenAssist
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string settingFileName = "settings.xml";
         public MainWindow()
         {
             InitializeComponent();
 
+            if(!System.IO.File.Exists(settingFileName)) CreateSetting();
             LoadSetting();
         }
 
+        public Setting setting;
+        private void SaveLanIP_Click(object sender, RoutedEventArgs e)
+        {
+            setting.lanip = LanIP.Text;
+
+            // XmlSerializerを使ってファイルに保存（オブジェクトの内容を書き込む）
+            XmlSerializer serializer = new XmlSerializer(typeof(Setting));
+
+            // カレントディレクトリに"settings.xml"というファイルで書き出す
+            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + settingFileName, FileMode.Create);
+
+            // オブジェクトをシリアル化してXMLファイルに書き込む
+            serializer.Serialize(fs, setting);
+            fs.Close();
+        }
+
+        /*
         private void OpenDH_Click(object sender, RoutedEventArgs e)
         {
             //ProcessStartInfoのオブジェクトを生成
@@ -115,6 +134,7 @@ namespace PortOpenAssist
             //psInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
             Process.Start(psInfo); // コマンドの実行開始
         }
+        */
 
         //英数字限定用
         private void EnOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -132,7 +152,7 @@ namespace PortOpenAssist
             }
         }
 
-        private Setting setting;
+        
         private OpenSet set_DH;
         private OpenSet set_BE;
         private OpenSet set_JE;
@@ -142,6 +162,8 @@ namespace PortOpenAssist
             set_DH = new OpenSet();
             set_BE = new OpenSet();
             set_JE = new OpenSet();
+
+            setting.lanip = "";
 
             set_DH.name = "Hoi2 DH";
             set_DH.ports = new ObservableCollection<Port>();
@@ -167,27 +189,165 @@ namespace PortOpenAssist
             XmlSerializer serializer = new XmlSerializer(typeof(Setting));
 
             // カレントディレクトリに"settings.xml"というファイルで書き出す
-            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + "settings.xml", FileMode.Create);
+            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + settingFileName, FileMode.Create);
 
             // オブジェクトをシリアル化してXMLファイルに書き込む
             serializer.Serialize(fs, setting);
             fs.Close();
         }
 
+        //public ObservableCollection<Port>[] portSetting;
+        public List<ObservableCollection<Port>> portSetting = new List<ObservableCollection<Port>>();
         private void LoadSetting()
         {
-            // XMLをTwitSettingsオブジェクトに読み込む
-            Setting setting = new Setting();
-            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + "settings.xml", FileMode.Open);
+            // XMLをSettingオブジェクトに読み込む
+            setting = new Setting();
+            FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + settingFileName, FileMode.Open);
 
             // XMLファイルを読み込み、逆シリアル化（復元）する
             XmlSerializer serializer = new XmlSerializer(typeof(Setting));
             setting = (Setting)serializer.Deserialize(fs);
             fs.Close();
 
+            /* stackpanel使ったやり方
+            foreach(OpenSet item in setting.opensets)
+            {
+                StackPanel sp = new StackPanel{ Orientation = Orientation.Horizontal, Width = 471 };
+                sp.Children.Add(new Button { Content = " Open ", HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right });
+                sp.Children.Add(new Button { Content = " Close ", HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right });
+                sp.Children.Add(new Label { Content = item.name });
+                String portText = "";
+                foreach(Port portOb in item.ports)
+                {
+                    portText = portText + portOb.port + portOb.protocol + "\n";
+                }
+                sp.Children.Add(new Label { Content = portText });
+                stackPanel.Children.Add(sp);
+            }*/
 
+            LanIP.Text = setting.lanip;
+
+            //Grid使ったやり方
+            int i = 0;
+            foreach (OpenSet item in setting.opensets)
+            {
+                //name
+                Label name = new Label { Content = item.name };
+                Grid.SetRow(name, i) ;
+                Grid.SetColumn(name, 0);
+                grid.Children.Add(name);
+
+                //ポート番号
+                String portText = "";
+                foreach (Port portOb in item.ports)
+                {
+                    portText = portText + portOb.port + " " + portOb.protocol + "\n";
+                }
+                Label port = new Label { Content = portText };
+                Grid.SetRow(port, i);
+                Grid.SetColumn(port, 1);
+                grid.Children.Add(port);
+                //portSetting[i] = item.ports;
+                portSetting.Add(item.ports);
+
+                //Openボタン
+                Button buttonOpen = new Button();
+                buttonOpen.Content = " Open ";
+                buttonOpen.Name = "o" + i.ToString();
+                buttonOpen.Click += ButtonOpen_Click;
+                Grid.SetRow(buttonOpen, i);
+                Grid.SetColumn(buttonOpen, 2);
+                grid.Children.Add(buttonOpen);
+
+                //Closeボタン
+                Button buttonClose = new Button { Content = " Close " };
+                buttonClose.Name = "c" + i.ToString();
+                buttonClose.Click += ButtonClose_Click;
+                Grid.SetRow(buttonClose, i);
+                Grid.SetColumn(buttonClose, 3);
+                grid.Children.Add(buttonClose);
+
+                //設定ボタン
+                Button buttonSetting = new Button { Content = "S" };
+                buttonSetting.Name = "s" + i.ToString();
+                buttonSetting.Click += ButtonSetting_Click;
+                Grid.SetRow(buttonSetting, i);
+                Grid.SetColumn(buttonSetting, 4);
+                grid.Children.Add(buttonSetting);
+
+                grid.RowDefinitions.Add(new RowDefinition()); //行幅設定の追加
+                i++;
+            }
+            //追加ボタン
+            Button buttonNew = new Button();
+            buttonNew.Content = " + ";
+            buttonNew.Name = "plus";
+            buttonNew.Click += ButtonNew_Click;
+            Grid.SetRow(buttonNew, i);
+            Grid.SetColumn(buttonNew, 0);
+            grid.Children.Add(buttonNew);
+        }
+
+        
+
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            //MessageBox.Show("open");
+
+            //ProcessStartInfoのオブジェクトを生成
+            ProcessStartInfo psInfo = new ProcessStartInfo();
+            psInfo.FileName = "UPnPCJ.exe"; //コマンド
+            psInfo.CreateNoWindow = true; // コンソール・ウィンドウを開かない
+            psInfo.UseShellExecute = false; // シェル機能を使用しない
+            //psInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
+
+            Button b = (Button)sender;
+            
+            foreach (Port portOb in portSetting[int.Parse(b.Name.Substring(1))])
+            {
+                psInfo.Arguments = @"/open " + portOb.port + " " + portOb.protocol + " " + portOb.port + " " + LanIP.Text; //引数
+                Process.Start(psInfo); // コマンドの実行開始
+            }
 
         }
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            //ProcessStartInfoのオブジェクトを生成
+            ProcessStartInfo psInfo = new ProcessStartInfo();
+            psInfo.FileName = "UPnPCJ.exe"; //コマンド
+            psInfo.CreateNoWindow = true; // コンソール・ウィンドウを開かない
+            psInfo.UseShellExecute = false; // シェル機能を使用しない
+            //psInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
+
+            Button b = (Button)sender;
+
+            foreach (Port portOb in portSetting[int.Parse(b.Name.Substring(1))])
+            {
+                psInfo.Arguments = @"/close " + portOb.port + " " + portOb.protocol + " " + portOb.port + " " + LanIP.Text; //引数
+                Process.Start(psInfo); // コマンドの実行開始
+            }
+        }
+
+        private void ButtonSetting_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            var win = new SettingWindow(setting, int.Parse(b.Name.Substring(1)));
+            win.ShowDialog();
+            //LoadSetting();
+            this.Close();
+        }
+
+        private void ButtonNew_Click(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            var win = new SettingWindow(setting, -1);
+            win.ShowDialog();
+            //LoadSetting();
+            this.Close();
+        }
+
     }
 
     public class Port
@@ -204,6 +364,7 @@ namespace PortOpenAssist
 
     public class Setting
     {
+        public string lanip;
         public ObservableCollection<OpenSet> opensets;
     }
 }
