@@ -173,7 +173,7 @@ namespace PortOpenAssist
                 OpenSet newOpenSet = new OpenSet();
                 newOpenSet.name = name.Text;
                 newOpenSet.ports = new ObservableCollection<Port>();
-                Port altPort = new Port();
+                Port altPort;
                 for (int n = 0; n < k; n++)
                 {
                     /*
@@ -188,11 +188,13 @@ namespace PortOpenAssist
                     if (altPort.port == "") break;
                     newOpenSet.ports.Add(altPort);
                     */
+                    altPort = new Port();
 
                     TextBox portTextBox = (TextBox)this.setting_grid.FindName("n" + n);
                     if (portTextBox.Text == "") break;
                     altPort.port = portTextBox.Text;
                     ComboBox protocolComboBox = (ComboBox)this.setting_grid.FindName("p" + n);
+                    if (protocolComboBox.Text == "") break;
                     altPort.protocol = protocolComboBox.Text;
                     //if (altPort.port == "") break;
                     newOpenSet.ports.Add(altPort);
@@ -205,7 +207,7 @@ namespace PortOpenAssist
                 //更新
                 setting.opensets[i].name = name.Text;
                 setting.opensets[i].ports.Clear();
-                Port altPort = new Port();
+                Port altPort;
                 for (int n = 0; n < k; n++)
                 {
                     /*
@@ -220,11 +222,13 @@ namespace PortOpenAssist
                     if (altPort.port == "") break;
                     setting.opensets[i].ports.Add(altPort);
                     */
+                    altPort = new Port();
 
                     TextBox portTextBox = (TextBox)this.setting_grid.FindName("n" + n);
                     if (portTextBox.Text == "") break;
                     altPort.port = portTextBox.Text;
                     ComboBox protocolComboBox = (ComboBox)this.setting_grid.FindName("p" + n);
+                    if (protocolComboBox.Text == "") break;
                     altPort.protocol = protocolComboBox.Text;
                     //if (altPort.port == "") break;
                     setting.opensets[i].ports.Add(altPort);
