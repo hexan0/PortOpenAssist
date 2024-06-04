@@ -13,43 +13,21 @@
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,0,0"/>
         <Label Content="Ports" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="160,35,0,0"/>
         <Label Content="Protocol" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,35,0,0"/>
-        <Grid x:Name="setting_grid" HorizontalAlignment="Left" Height="393" VerticalAlignment="Top" Width="372" Margin="10,66,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="23" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="55" />
-                <ColumnDefinition Width="30" />
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <!--
-            <TextBox x:Name="port0" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <ComboBox x:Name="protocol0" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50">
-                <ComboBoxItem Content="TCP"/>
-                <ComboBoxItem Content="UDP"/>
-            </ComboBox>
-            <Button x:Name="newButton" Grid.Row="1" Grid.Column="1" Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Click="NewButton_Click"/>
-            -->
-
-        </Grid>
+        <ScrollViewer HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" Margin="10,66,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+            <Grid x:Name="setting_grid" HorizontalAlignment="Left" Height="auto" MinHeight="393" VerticalAlignment="Top" Width="372" Margin="0,0,0,0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+        </ScrollViewer>
+        
 
 
     </Grid>

@@ -278,6 +278,7 @@ namespace PortOpenAssist
                 //grid.RowDefinitions.Add(new RowDefinition()); //行幅設定の追加
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); //行幅設定の追加
                 // TODO : あまりに設定が多いと表示がはみでてしまい見えなくなる問題
+                // ↑解決
                 i++;
             }
             //追加ボタン

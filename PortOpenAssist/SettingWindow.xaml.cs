@@ -66,6 +66,8 @@ namespace PortOpenAssist
                 Grid.SetRow(newButton, k);
                 Grid.SetColumn(newButton, 1);
                 setting_grid.Children.Add(newButton);
+
+                setting_grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); //行幅設定の追加
             }
             else
             {
@@ -104,6 +106,7 @@ namespace PortOpenAssist
                     // setting_grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength { Value = 23 } }); //行幅設定の追加
                     // ↑この設定方法はValueが読み取り専用なので無理
                     //setting_grid.RowDefinitions.Add(new RowDefinition()); //行幅設定の追加
+                    setting_grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); //行幅設定の追加
 
                     k++;
                 }
@@ -115,7 +118,7 @@ namespace PortOpenAssist
                 setting_grid.Children.Add(newButton);
 
                 //setting_grid.RowDefinitions.Add(new RowDefinition()); //行幅設定の追加
-
+                setting_grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); //行幅設定の追加
             }
         }
 
@@ -123,6 +126,7 @@ namespace PortOpenAssist
 
         private void NewButton_Click(object sender, RoutedEventArgs e)
         {
+            //ポート番号入力ボックス追加
             TextBox portBox = new TextBox();
             //portBox.Text = item.port;
             portBox.Name = "n" + k;
@@ -131,6 +135,7 @@ namespace PortOpenAssist
             setting_grid.Children.Add(portBox);
             setting_grid.RegisterName(portBox.Name, portBox);
 
+            //プロトコル選択追加
             ComboBox protocolBox = new ComboBox();
             protocolBox.Items.Add("TCP");
             protocolBox.Items.Add("UDP");
@@ -143,6 +148,7 @@ namespace PortOpenAssist
 
             k++;
             Grid.SetRow(newButton, k); //行追加ボタンを一つ下の行に移動
+            setting_grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto }); //行幅設定の追加
         }
 
         /*

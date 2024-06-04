@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PortOpenAssist"
         mc:Ignorable="d"
-        Title="Port Open Assist" Height="600" Width="500">
+        Title="Port Open Assist" Height="auto" Width="500" MinWidth="500" MinHeight="80"><!--600x500-->
     <Grid>
         <Label Content="LAN IP :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="LanIP" HorizontalAlignment="Left" Height="23" Margin="66,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
@@ -41,17 +41,17 @@
         </Grid>
         -->
 
-        <ScrollViewer HorizontalAlignment="Left" Height="518" VerticalAlignment="Top" Width="484" Margin="0,41,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
-            <Grid x:Name="grid" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="455" Margin="10,0,0,0">
+        <ScrollViewer HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" Margin="0,41,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+            <Grid x:Name="grid" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="auto" MinWidth="455" Margin="10,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="55" />
-                    <ColumnDefinition Width="55" />
-                    <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
             </Grid>
         </ScrollViewer>
